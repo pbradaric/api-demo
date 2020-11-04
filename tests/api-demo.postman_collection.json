@@ -1,0 +1,742 @@
+{
+	"info": {
+		"_postman_id": "27f72f4f-71ca-47f0-a646-7c293e6bc8ea",
+		"name": "api-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pictures - GET ALL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/pictures?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc&page=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "page",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pictures - GET SPECIFIC (FILE)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/pictures/1?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pictures - GET SPECIFIC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/pictures/1?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pictures - CREATE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"contentType": "",
+							"type": "file",
+							"src": "/home/pbradaric/Pictures/screenshot_2020-11-02_22-36-42.png"
+						},
+						{
+							"key": "file_name",
+							"value": "screenshot_2020-11-02_22-36-42.png",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pictures?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pictures - UPDATE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/pbradaric/Pictures/phones_size_comparison.png"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pictures/2?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures",
+						"2"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pictures - DELETE SPECIFIC",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/pictures/1?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Albums - GET ALL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/pictures?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc&page=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "page",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Albums - GET SPECIFIC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/albums/1?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"albums",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Albums - CREATE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"contentType": "",
+							"type": "file",
+							"src": "/home/pbradaric/Pictures/screenshot_2020-11-02_22-36-42.png"
+						},
+						{
+							"key": "file_name",
+							"value": "screenshot_2020-11-02_22-36-42.png",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pictures?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Albums - UPDATE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/pbradaric/Pictures/phones_size_comparison.png"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pictures/2?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures",
+						"2"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Albums - DELETE SPECIFIC",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/albums/2?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"albums",
+						"2"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Posters - GET ALL",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/posters?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc&page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posters"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Posters - GET SPECIFIC",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/albums/1?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"albums",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Posters - CREATE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"contentType": "",
+							"type": "file",
+							"src": "/home/pbradaric/Pictures/screenshot_2020-11-02_22-36-42.png"
+						},
+						{
+							"key": "file_name",
+							"value": "screenshot_2020-11-02_22-36-42.png",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/pictures?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"pictures"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Posters - UPDATE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/pbradaric/Pictures/phones_size_comparison.png"
+						},
+						{
+							"key": "_method",
+							"value": "put",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/posters/2?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc&title=Test poster&description=Long description updated&picture_id=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posters",
+						"2"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						},
+						{
+							"key": "title",
+							"value": "Test poster"
+						},
+						{
+							"key": "description",
+							"value": "Long description updated"
+						},
+						{
+							"key": "picture_id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Posters - DELETE SPECIFIC",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/posters/1?api_token=EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"posters",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
