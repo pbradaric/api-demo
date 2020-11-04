@@ -11,7 +11,7 @@ class Picture extends Model
      *
      * @var array
      */
-    protected $hidden = ['user_id'];
+    protected $hidden = ['user_id', 'pivot'];
 
     /**
      * The attributes that are mass assignable.
@@ -31,5 +31,10 @@ class Picture extends Model
     public function album()
     {
         return $this->belongsToMany(Album::class, 'album_pictures');
+    }
+
+    public function posters()
+    {
+        return $this->hasMany(Poster::class);
     }
 }

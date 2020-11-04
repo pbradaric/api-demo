@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\PictureHelper;
 use App\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +17,7 @@ class PictureController extends Controller
         $items = 50;
         $page = 1;
         if ($request->exists('page')) {
-            $page = $request->get('page');
+            $page = $request->input('page');
             if (!is_numeric($page) || $page < 1) {
                 $page = 1;
             }
@@ -27,6 +29,19 @@ class PictureController extends Controller
             'count' => $pictures->count(),
             'data' => $pictures->toArray(),
         ];
+    }
+
+    public function deliver(Request $request, $id)
+    {
+        $user = Auth::guard('api')->user();
+        $picture = $user->pictures()->find($id);
+        if (!$picture) {
+            return response()->json([
+                'type' => "error",
+                'message' => "Not found!",
+            ], 404);
+        }
+        return Storage::download(PictureHelper::getUserPictureStoragePath($user) . '/' . $picture->file_name);
     }
 
     public function show(Request $request, $id)
@@ -42,6 +57,7 @@ class PictureController extends Controller
         return [
             'type' => "success",
             'data' => $picture->toArray(),
+            'url' => Storage::url(PictureHelper::getUserPictureStoragePath($user) . '/' . $picture->file_name),
         ];
     }
 
@@ -57,20 +73,22 @@ class PictureController extends Controller
                 'message' => $validator->errors(),
             ], 400);
         }
-        $file = $request->file('file')->store('public/pictures');
         $picture = new Picture();
-        $picture->file_name = pathinfo($file, PATHINFO_BASENAME);
+        $picture->file_name = $request->file('file')->getClientOriginalName();
+        if ($user->pictures()->where('file_name', $picture->file_name)->count()) {
+            return response()->json([
+                'type' => "error",
+                'message' => "Picture with the same name already exists!",
+            ], 400);
+        }
+        $file = $request->file('file')->storeAs(PictureHelper::getUserPictureStoragePath($user), $picture->file_name);
         $picture->file_path = $file;
         $user->pictures()->save($picture);
         if ($picture->id) {
             return [
                 'type' => 'success',
                 'message' => 'Successfully saved picture!',
-                'data' => [
-                    'id' => $picture->id,
-                    'name' => $picture->file_name,
-                    'path' => $picture->file_path,
-                ]
+                'data' => $picture->toArray(),
             ];
         }
         return response()->json([
@@ -98,18 +116,15 @@ class PictureController extends Controller
                 'message' => $validator->errors(),
             ], 400);
         }
-        // Delete old one first.
-        $file = $request->file('file')->store('public/pictures');
-        $picture->file_name = $file;
+        Storage::delete($picture->file_path);
+        $picture->file_name = $request->file('file')->getClientOriginalName();
+        $file = $request->file('file')->storeAs(PictureHelper::getUserPictureStoragePath($user), $picture->file_name);
         $picture->file_path = $file;
-        $picture->save();
+        $user->pictures()->save($picture);
         return [
             'type' => 'success',
             'message' => 'Successfully saved picture!',
-            'data' => [
-                'id' => $picture->id,
-                'path' => $picture->file_path,
-            ]
+            'data' => $picture->toArray()
         ];
     }
 
@@ -133,9 +148,7 @@ class PictureController extends Controller
         return [
             'type' => 'success',
             'message' => 'Successfully deleted picture!',
-            'data' => [
-                'picture_id' => $picture->id,
-            ]
+            'data' => $picture->toArray()
         ];
     }
 }

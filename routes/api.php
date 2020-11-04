@@ -20,9 +20,24 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => ['auth:api']], function () {
+
     Route::get('pictures', 'PictureController@index');
-    Route::get('pictures/{id}', 'PictureController@show');
+    Route::get('pictures/{id}', 'PictureController@deliver');
+    Route::get('pictures/data/{id}', 'PictureController@show');
     Route::post('pictures', 'PictureController@store');
     Route::put('pictures/{id}', 'PictureController@update');
     Route::delete('pictures/{id}', 'PictureController@delete');
+
+    Route::get('albums', 'AlbumController@index');
+    Route::get('albums/{id}', 'AlbumController@show');
+    Route::post('albums', 'AlbumController@store');
+    Route::put('albums/{id}', 'AlbumController@update');
+    Route::delete('albums/{id}', 'AlbumController@delete');
+
+    Route::get('posters', 'PosterController@index');
+    Route::get('posters/{id}', 'PosterController@show');
+    Route::post('posters', 'PosterController@store');
+    Route::put('posters/{id}', 'PosterController@update');
+    Route::delete('posters/{id}', 'PosterController@delete');
+
 });

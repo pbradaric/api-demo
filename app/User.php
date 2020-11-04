@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'api_token'
     ];
 
     /**
@@ -43,9 +43,13 @@ class User extends Authenticatable
     {
         parent::boot();
         static::creating(function(User $user) {
-            do {
-                $user->api_token = Str::random(60);
-            } while (static::where('api_token', $user->api_token)->count());
+            if (   ($user->api_token && static::where('api_token', $user->api_token)->count())
+                || !$user->api_token
+            ) {
+                do {
+                    $user->api_token = Str::random(60);
+                } while (static::where('api_token', $user->api_token)->count());
+            }
         });
     }
 
