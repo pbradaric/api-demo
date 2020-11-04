@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@localhost',
             'password' => $password,
+            'api_token' => 'EO9fsHiGWxZPKyhHpMcr8sm1iW9omUs3O1BMrIisnQZ6qaGMjQ7zXvFAmbnc',
         ]);
     }
 }
