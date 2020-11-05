@@ -1,0 +1,30 @@
+---
+- name: Update apt cache
+  apt: update_cache=yes upgrade=yes
+  tags:
+    - apt-get-update
+    - apt-get-upgrade
+
+- name: Install zip
+  apt: name=zip state=present
+
+- name: Install unzip
+  apt: name=unzip state=present
+
+- name: Install htop
+  apt: name=htop state=present
+
+- name: Install vim
+  apt: name=vim state=present
+
+- name: Install GIT
+  apt: name=git state=present
+
+- name: Install Python modules
+  apt: name=python-mysqldb state=present
+
+- name: Install logwatch
+  apt: name=logwatch state=present
+
+- name: Install lnav
+  apt: name=lnav state=present

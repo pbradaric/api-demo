@@ -1,0 +1,10 @@
+---
+app_domain: api-demo
+user: api_demo
+db_host: localhost
+db_name: api_demo
+db_testing_name: api_demo_testing
+db_user: api_demo
+db_pass: api_demo
+db_port: 3306
+php_fpm_version: 7.2

@@ -1,0 +1,11 @@
+---
+- name: Laravel Vagrant Setup and Utilities
+  hosts: default
+  remote_user: vagrant
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: common, tags: ['never','initial_setup','common'] }
+    - { role: webdev, tags: ['never','initial_setup','webdev'] }
+    - { role: laravel, tags: ['never','initial_setup','laravel'] }

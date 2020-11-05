@@ -1,0 +1,59 @@
+- name: Install php-fpm and dependencies
+  apt:
+    name: "['php{{ php_fpm_version }}', 'php{{ php_fpm_version }}-fpm', 'php{{ php_fpm_version }}-common', 'php{{ php_fpm_version }}-mbstring', 'php{{ php_fpm_version }}-cli', 'php{{ php_fpm_version }}-gd', 'php{{ php_fpm_version }}-curl', 'php{{ php_fpm_version }}-xml', 'php{{ php_fpm_version }}-mysql']"
+    state: present
+
+- name: Install MySQL package
+  apt: name=mysql-server state=present
+
+- name: Start MySQL service
+  service: name=mysql state=started enabled=yes
+
+- name: Install nginx
+  apt: name=nginx state=present
+
+- name: Install phpMyAdmin
+  command: apt-get -y install phpmyadmin
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  args:
+    warn: false
+
+- name: Add Node JS PPA
+  script: add_node_ppa.sh
+  tags: add_node_ppa
+
+- name: Install Node JS
+  apt: name=nodejs state=present
+
+- name: Create node symlink
+  command: ln -s /usr/bin/nodejs /usr/bin/node
+  args:
+    creates: /usr/bin/node
+
+- name: Check if Composer is installed
+  stat: "path=/usr/local/bin/composer"
+  register: composer_phar
+
+- name: Install Composer
+  script: install_composer.sh
+  tags: install_composer
+
+- name: Copy nginx default config
+  template: src=default dest=/etc/nginx/sites-available/default
+  notify: restart nginx
+  tags: nginx-update-config
+
+- name: Enable new server block (default)
+  file: path=/etc/nginx/sites-enabled/default src=/etc/nginx/sites-available/default state=link
+  notify: restart nginx
+
+- name: Copy robots.txt to /var/www/html/ folder
+  template: src=robots.txt dest=/var/www/html
+  notify: restart nginx
+
+- name: Create symbolic link from /var/www/html/phpmyadmin to /usr/share/phpmyadmin folder
+  file:
+    src: "/usr/share/phpmyadmin"
+    dest: "/var/www/html/phpmyadmin"
+    state: link

@@ -1,0 +1,118 @@
+---
+- name: Change machine name to {{ app_domain }}
+  shell: hostname {{ app_domain }}
+
+- name: Update /etc/hosts file with {{ app_domain }} hostname
+  lineinfile: dest=/etc/hosts regexp='^127.0.0.1' line="127.0.0.1 localhost {{ app_domain }}"
+
+- name: Add {{ user }} user
+  user:
+    name: "{{ user }}"
+    shell: /bin/bash
+    groups: vagrant
+    append: yes
+
+- name: Create symbolic link from /home/{{ user }}/api-demo to /vagrant folder
+  file:
+    src: "/vagrant"
+    dest: "/home/{{ user }}/api-demo"
+    state: link
+    group: "{{ user }}"
+    owner: "{{ user }}"
+
+- name: Copy Laravel .env file
+  template:
+    src: ../../../../../.env.example
+    dest: "/home/{{ user }}/api-demo/.env"
+  become: yes
+  become_user: "{{ user }}"
+
+- name: Create Laravel database
+  mysql_db: "name={{ db_name }} state=present"
+
+- name: Create Laravel testing database
+  mysql_db: "name={{ db_testing_name }} state=present"
+
+- name: Create Laravel database user
+  mysql_user: "name={{ db_user }} password={{ db_pass }} priv=*.*:ALL host='localhost' state=present"
+
+- name: Ensure php-fpm cgi.fix_pathinfo=0
+  lineinfile:
+    dest: "/etc/php/{{ php_fpm_version }}/fpm/php.ini"
+    regexp: '^(.*)cgi.fix_pathinfo='
+    line: cgi.fix_pathinfo=0
+  notify:
+    - restart php-fpm
+    - restart nginx
+
+- name: Copy php-fpm configuration
+  template:
+    src: api-demo.conf
+    dest: "/etc/php/{{ php_fpm_version }}/fpm/pool.d/"
+  notify:
+    - restart php-fpm
+    - restart nginx
+
+- name: Copy nginx config for {{ app_domain }}
+  template: src=api-demo dest=/etc/nginx/sites-available/api-demo
+  notify: restart nginx
+  tags: nginx-update-config
+
+- name: Enable new server block ({{ app_domain }})
+  file: path=/etc/nginx/sites-enabled/api-demo src=/etc/nginx/sites-available/api-demo state=link
+  notify: restart nginx
+
+- name: Remove index.nginx-debian.html from /var/www/html/ folder
+  file: path=/var/www/html/index.nginx-debian.html state=absent
+
+- name: Restart php-fpm
+  service:
+    name: "php{{ php_fpm_version }}-fpm"
+    state: restarted
+
+- name: Restart nginx
+  service: name=nginx state=restarted enabled=yes
+
+- name: Install Artisan and other project libraries via Composer
+  command: composer install
+  args:
+    chdir: "/home/{{ user }}/api-demo/"
+  ignore_errors: yes
+  become: yes
+  become_user: vagrant
+
+- name: Recursively change ownership of a directory
+  file:
+    path: "/home/{{ user }}/api-demo/storage"
+    state: directory
+    recurse: yes
+    mode: g=rw
+
+- name: Recursively change ownership of a directory
+  file:
+    path: "/home/{{ user }}/api-demo/bootstrap/cache"
+    state: directory
+    recurse: yes
+    mode: a=rwx
+
+- name: Run Artisan migrations
+  command: php artisan migrate:fresh
+  args:
+    chdir: "/home/{{ user }}/api-demo/"
+  become: yes
+  become_user: vagrant
+
+- name: Run Artisan DB seeder
+  command: php artisan db:seed
+  args:
+    chdir: "/home/{{ user }}/api-demo/"
+  become: yes
+  become_user: vagrant
+
+#- name: Make sure the cron job for Laravel task scheduler exists
+#  cron:
+#    name: "Laravel Scheduler"
+#    job: "/usr/bin/php /home/{{ user }}/api-demo/artisan schedule:run >> /dev/null 2>&1"
+#  become: yes
+#  become_user: "{{ user }}"
+#  tags: update-cron-job

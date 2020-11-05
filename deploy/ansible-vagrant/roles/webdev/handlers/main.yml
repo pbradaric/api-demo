@@ -1,0 +1,11 @@
+---
+- name: restart php-fpm
+  service:
+    name: "php{{ php_fpm_version }}-fpm"
+    state: restarted
+
+- name: restart nginx
+  service: name=nginx state=restarted enabled=yes
+
+- name: restart mysql
+  service: name=mysql state=restarted
